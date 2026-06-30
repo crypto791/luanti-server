@@ -18,5 +18,5 @@ COPY mod.conf /root/.minetest/mods/admin_system/mod.conf
 EXPOSE 80
 EXPOSE 30000
 
-# Executa o servidor HTTP de mentira na porta 80, o jogo e abre o túnel SSH
-CMD while true; do echo -e "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK" | nc -l -p 80; done & minetest --server --gameid minetest_game --port 30000 & sleep 5 && ssh -o StrictHostKeyChecking=no -R 80:localhost:30000 nokey@localhost.run
+# Executa o servidor HTTP falso em loop em background, inicia o Luanti e engata o túnel SSH contínuo
+CMD (while true; do echo -e "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK" | nc -l -p 80; done) & minetest --server --gameid minetest_game --port 30000 & sleep 7 && ssh -o StrictHostKeyChecking=no -N -R 80:127.0.0.1:30000 nokey@localhost.run
