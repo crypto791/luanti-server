@@ -20,4 +20,4 @@ EXPOSE 80
 EXPOSE 30000
 
 # Executa o servidor HTTP falso em loop, inicia o Luanti com o arquivo de config e abre o túnel SSH
-CMD (while true; do echo -e "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK" | nc -l -p 80; done) & minetest --server --config /root/.minetest/minetest.conf & sleep 7 && ssh -o StrictHostKeyChecking=no -N -R 80:127.0.0.1:30000 nokey@localhost.run
+CMD (while true; do echo -e "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK" | nc -l -p 80; done) & minetest --server --gameid minetest_game --config /root/.minetest/minetest.conf --worldname world & sleep 7 && ssh -o StrictHostKeyChecking=no -N -R 80:127.0.0.1:30000 nokey@localhost.run
